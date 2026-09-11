@@ -1,6 +1,6 @@
 # Chic Charm Collections
 
-A premium, responsive Nigerian fashion and lifestyle e-commerce storefront for bags, clothing, cutlery, and jewelry.
+A premium, responsive Nigerian fashion and lifestyle e-commerce storefront for bags, clothing, household appliances, and jewelry.
 
 ## Technology
 

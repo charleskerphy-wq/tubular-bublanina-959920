@@ -5,7 +5,7 @@ import { useEffect, useState, type FormEvent } from 'react'
 import { useCart } from '@/context/CartContext'
 
 const links = [
-  ['Home', '/'], ['Bags', '/bags'], ['Clothing', '/clothing'], ['Cutlery', '/cutlery'],
+  ['Home', '/'], ['Bags', '/bags'], ['Clothing', '/clothing'], ['Household Appliances', '/household-appliances'],
   ['Jewelry', '/jewelry'], ['About', '/about'], ['Contact', '/contact'],
 ] as const
 

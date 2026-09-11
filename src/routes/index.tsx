@@ -1,11 +1,11 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { ArrowRight, CreditCard, PackageCheck, ShieldCheck, Sparkles, Star, Truck } from 'lucide-react'
 import { motion, useReducedMotion } from 'motion/react'
-import products, { categoryMeta, type ProductCategory } from '@/data/products'
+import { categoryMeta, storefrontProducts, type StorefrontCategory } from '@/data/products'
 import { ProductGrid } from '@/components/ProductGrid'
 
 export const Route = createFileRoute('/')({
-  head: () => ({ meta: [{ title: 'Chic Charm Collections | Premium Fashion & Lifestyle Store' }, { name: 'description', content: 'Shop elegant bags, clothing, jewelry and premium household cutlery from Chic Charm Collections.' }, { property: 'og:title', content: 'Chic Charm Collections' }, { property: 'og:description', content: 'Style, elegance and everyday essentials, beautifully curated in Nigeria.' }] }),
+  head: () => ({ meta: [{ title: 'Chic Charm Collections | Premium Fashion & Lifestyle Store' }, { name: 'description', content: 'Shop elegant bags, clothing, jewelry and household appliances from Chic Charm Collections.' }, { property: 'og:title', content: 'Chic Charm Collections' }, { property: 'og:description', content: 'Style, elegance and everyday essentials, beautifully curated in Nigeria.' }] }),
   component: HomePage,
 })
 
@@ -38,11 +38,11 @@ function HomePage() {
       </div>
     </section>
 
-    <section id="collections" className="shell py-20 sm:py-28"><div className="section-heading"><div><p className="eyebrow">Shop by category</p><h2>Four ways to charm.</h2></div><p>Thoughtful pieces for how you dress, celebrate, travel, and gather.</p></div><div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4">{(Object.entries(categoryMeta) as [ProductCategory, typeof categoryMeta.Bags][]).map(([name, meta], index) => <Link key={name} to={meta.slug} className={`category-card ${index === 0 ? 'xl:translate-y-8' : index === 2 ? 'xl:-translate-y-5' : ''}`}><img src={meta.image} alt={`${name} collection`} loading="lazy" /><div className="category-shade" /><div className="category-content"><span>0{index + 1}</span><h3>{name.toUpperCase()}</h3><p>{meta.description}</p><strong>Explore Collection <ArrowRight size={16} /></strong></div></Link>)}</div></section>
+    <section id="collections" className="shell py-20 sm:py-28"><div className="section-heading"><div><p className="eyebrow">Shop by category</p><h2>Four ways to charm.</h2></div><p>Thoughtful pieces for how you dress, celebrate, travel, and gather.</p></div><div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4">{(Object.entries(categoryMeta) as [StorefrontCategory, typeof categoryMeta.Bags][]).map(([name, meta], index) => <Link key={name} to={meta.slug} className={`category-card ${index === 0 ? 'xl:translate-y-8' : index === 2 ? 'xl:-translate-y-5' : ''}`}><img src={meta.image} alt={`${name} collection`} loading="lazy" /><div className="category-shade" /><div className="category-content"><span>0{index + 1}</span><h3>{name.toUpperCase()}</h3><p>{meta.description}</p><strong>Explore Collection <ArrowRight size={16} /></strong></div></Link>)}</div></section>
 
-    <ProductSection eyebrow="Handpicked for you" title="Featured Pieces" products={products.filter((product) => product.featured).slice(0, 8)} />
-    <ProductSection eyebrow="Freshly arrived" title="New Arrivals" products={products.filter((product) => product.newArrival).slice(0, 8)} muted />
-    <ProductSection eyebrow="Customer favourites" title="Best Sellers" products={products.filter((product) => product.bestSeller).slice(0, 8)} />
+    <ProductSection eyebrow="Handpicked for you" title="Featured Pieces" products={storefrontProducts.filter((product) => product.featured).slice(0, 8)} />
+    <ProductSection eyebrow="Freshly arrived" title="New Arrivals" products={storefrontProducts.filter((product) => product.newArrival).slice(0, 8)} muted />
+    <ProductSection eyebrow="Customer favourites" title="Best Sellers" products={storefrontProducts.filter((product) => product.bestSeller).slice(0, 8)} />
 
     <section className="shell py-20"><div className="offer-panel"><div><p className="eyebrow text-gold">The special edit</p><h2 className="mt-3 font-display text-4xl sm:text-6xl">A little luxury,<br />beautifully priced.</h2><p className="mt-5 max-w-lg leading-7 text-cream/70">Enjoy limited offers across selected fashion, home, and jewelry favourites while stock lasts.</p><Link to="/search" search={{ q: '' }} className="button-gold mt-8">Shop Special Offers <ArrowRight size={17} /></Link></div><div className="offer-number">15<sup>%</sup><span>OFF</span></div></div></section>
 
@@ -54,6 +54,6 @@ function HomePage() {
   </>
 }
 
-function ProductSection({ eyebrow, title, products: sectionProducts, muted = false }: { eyebrow: string; title: string; products: typeof products; muted?: boolean }) {
+function ProductSection({ eyebrow, title, products: sectionProducts, muted = false }: { eyebrow: string; title: string; products: typeof storefrontProducts; muted?: boolean }) {
   return <section className={muted ? 'bg-sand py-20' : 'shell py-20'}><div className={muted ? 'shell' : ''}><div className="section-heading"><div><p className="eyebrow">{eyebrow}</p><h2>{title}</h2></div><Link to="/search" search={{ q: '' }} className="text-link">View all <ArrowRight size={16} /></Link></div><div className="mt-9"><ProductGrid products={sectionProducts} /></div></div></section>
 }

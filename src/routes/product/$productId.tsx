@@ -1,14 +1,14 @@
 import { Link, createFileRoute, notFound } from '@tanstack/react-router'
 import { ArrowLeft, Check, Minus, Plus, ShieldCheck, ShoppingBag, Truck } from 'lucide-react'
 import { useState } from 'react'
-import products, { categoryMeta } from '@/data/products'
+import { categoryMeta, storefrontProducts } from '@/data/products'
 import { useCart } from '@/context/CartContext'
 import { discountedPrice, formatNaira } from '@/lib/format'
 import { ProductGrid } from '@/components/ProductGrid'
 
 export const Route = createFileRoute('/product/$productId')({
   loader: ({ params }) => {
-    const product = products.find((item) => item.id === Number(params.productId))
+    const product = storefrontProducts.find((item) => item.id === Number(params.productId))
     if (!product) throw notFound()
     return product
   },
@@ -20,7 +20,7 @@ function ProductDetails() {
   const product = Route.useLoaderData()
   const [quantity, setQuantity] = useState(1)
   const { addItem } = useCart()
-  const related = products.filter((item) => item.category === product.category && item.id !== product.id).slice(0, 4)
+  const related = storefrontProducts.filter((item) => item.category === product.category && item.id !== product.id).slice(0, 4)
   const schema = { '@context': 'https://schema.org', '@type': 'Product', name: product.name, image: product.image, description: product.description, offers: { '@type': 'Offer', priceCurrency: 'NGN', price: discountedPrice(product.price, product.discount), availability: product.inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock' } }
   return <>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />

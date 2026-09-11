@@ -1,17 +1,17 @@
 import { useMemo, useState } from 'react'
 import { SlidersHorizontal } from 'lucide-react'
-import products, { categories, categoryMeta, type ProductCategory } from '@/data/products'
+import { categories, categoryMeta, storefrontProducts, type StorefrontCategory } from '@/data/products'
 import { ProductGrid } from './ProductGrid'
 
 type Sort = 'featured' | 'low' | 'high' | 'newest'
 
-export function CategoryPage({ category }: { category: ProductCategory }) {
+export function CategoryPage({ category }: { category: StorefrontCategory }) {
   const [subcategory, setSubcategory] = useState('All')
   const [availability, setAvailability] = useState('all')
   const [maxPrice, setMaxPrice] = useState(50000)
   const [sort, setSort] = useState<Sort>('featured')
   const meta = categoryMeta[category]
-  const filtered = useMemo(() => products.filter((product) => product.category === category)
+  const filtered = useMemo(() => storefrontProducts.filter((product) => product.category === category)
     .filter((product) => subcategory === 'All' || product.subcategory === subcategory)
     .filter((product) => availability === 'all' || (availability === 'in' ? product.inStock : !product.inStock))
     .filter((product) => product.price <= maxPrice)
