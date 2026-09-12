@@ -1,4 +1,5 @@
-export type ProductCategory = 'Bags' | 'Clothing' | 'Cutlery' | 'Jewelry'
+export type StorefrontCategory = 'Bags' | 'Clothing' | 'Household Appliances' | 'Jewelry'
+export type ProductCategory = StorefrontCategory | 'Cutlery'
 
 export type Product = {
   id: number
@@ -56,18 +57,20 @@ const products: Product[] = [
   { id: 18, name: 'Dainty Gold Studs', description: 'Minimal gold-tone studs with a polished finish and comfortable all-day wear.', price: 7500, image: images.earrings, category: 'Jewelry', subcategory: 'Earrings', inStock: false, featured: false, newArrival: false, bestSeller: false, discount: 0, stockQuantity: 0, createdAt: '2026-02-11' },
 ]
 
-export const categories: Record<ProductCategory, string[]> = {
+export const storefrontProducts = products.filter((product) => product.category !== 'Cutlery')
+
+export const categories: Record<StorefrontCategory, string[]> = {
   Bags: ['Tote Bags', 'Women Bags', 'School Bags', 'Ladies Bags'],
   Clothing: ['Up & Down', 'Kids Wears', 'Skirts', 'Blouses', 'Jeans'],
-  Cutlery: ['Knives', 'Spoons', 'Plates', 'Jugs', 'Forks'],
+  'Household Appliances': [],
   Jewelry: ['Necklaces', 'Hand Beads', 'Earrings'],
 }
 
 export const categoryMeta = {
   Bags: { slug: '/bags', description: 'Statement companions for every chapter of your day.', image: images.handbag },
   Clothing: { slug: '/clothing', description: 'Confident silhouettes, effortless elegance, beautiful living.', image: images.fashion },
-  Cutlery: { slug: '/cutlery', description: 'Refined tableware for everyday rituals and celebrations.', image: images.plates },
+  'Household Appliances': { slug: '/household-appliances', description: 'Practical appliances for a beautifully considered home.', image: images.plates },
   Jewelry: { slug: '/jewelry', description: 'Finishing touches that make every moment feel special.', image: images.necklace },
-} satisfies Record<ProductCategory, { slug: string; description: string; image: string }>
+} satisfies Record<StorefrontCategory, { slug: string; description: string; image: string }>
 
 export default products
